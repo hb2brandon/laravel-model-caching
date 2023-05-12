@@ -309,7 +309,7 @@ class CacheKey
 
         $value = (new Arr)->get($where, "value", "");
 
-        return $this->processEnum($value);
+        return $value ? $this->processEnum($value) : $value;
     }
 
     protected function getValuesFromBindings(array $where, string $values) : string
@@ -426,7 +426,7 @@ class CacheKey
 
     private function processEnums(array $values): array
     {
-        return array_map(fn($value) => $this->processEnum($value), $values);
+        return array_map(fn($value) => $value ? $this->processEnum($value) : $value, $values);
     }
 
     private function expressionToString(Expression|string $value): string
